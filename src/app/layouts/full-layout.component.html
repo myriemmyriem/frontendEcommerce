@@ -1,0 +1,97 @@
+<style>
+ .z-depth-3 {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+}
+.z-depth-5 {
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+}
+</style>
+
+<header class="app-header navbar z-depth-3">
+
+  <button class="navbar-toggler d-lg-none" type="button" appMobileSidebarToggler>&#9776;</button>
+  <a  href="#">
+    <img src="assets/img/logosite.png"  height="50" width="170" >
+  </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button class="navbar-toggler d-md-down-none" type="button" appSidebarToggler>&#9776;</button>
+  <ul class="nav navbar-nav d-md-down-none">
+    
+  </ul>
+  
+  <ul class="nav navbar-nav ml-auto " >
+      <div class="form-group row" class="align:11px">
+          <div class="col-md-12">
+            
+          </div>
+        </div>
+    
+    <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
+      <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false">
+        <img src="../../assets/imguser/{{user?.photo}}" class="img-avatar" >
+        <span class="d-md-down-none">{{user?.prenom}}</span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+
+        <div class="dropdown-header text-center"><strong>Compte</strong></div>
+
+
+
+        <!--<a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profil</a>-->
+        <a class="dropdown-item" (click)="parametreCpte()" ><i class="fa fa-wrench"></i> Paramétres</a>
+        <div class="divider"></div>
+        <a class="dropdown-item"  (click)="Deconnecter()" ><i class="fa fa-lock"></i>Deconnexion</a>
+      </div>
+    </li>
+   
+    <button class="navbar-toggler d-md-down-none" type="button" disabled></button>
+ 
+  </ul>
+</header>   
+
+<div class="app-body" >
+  <div class="sidebar z-depth-3">
+    <nav class="sidebar-nav" style="background-color:rgba(3, 83, 97, 0.836)">
+      <ul class="nav" *ngIf="layoutAdmin" >
+ 
+        <li class="divider"></li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" ><i class="fa fa-database" style="color:darkgray"></i> Gérer Articles </a>
+        </li>
+          
+          
+            <li class="divider"></li>
+           
+            
+      </ul>
+      <ul class="nav" *ngIf="layoutClient" >
+
+                <li class="divider"></li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/test/GererUtilisateur']"><i class="fa fa-user" style="color:darkgray"></i> <font size="2">Gérer utilisateurs</font></a>
+                  </li>
+                  <li class="divider"></li>
+                 
+                  
+            </ul>
+           
+      
+    </nav>
+  </div>
+
+
+  <!-- Main content -->
+  <main class="main">
+  
+    
+
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div><!-- /.conainer-fluid -->
+  </main>
+  <aside class="aside-menu">
+    
+  </aside>
+ 
+</div>
+
+

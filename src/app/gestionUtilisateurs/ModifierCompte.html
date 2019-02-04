@@ -1,0 +1,52 @@
+<style>
+  .z-depth-3 {
+   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+ }
+ .z-depth-5 {
+   box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+ }
+ </style>
+<div class="animated fadeIn center">
+  <br>
+  <br>
+  <br>
+<div class="col-md-12  text-center">
+<div class="card z-depth-5" >
+
+    <div class="card-header text-left">
+      <strong>Modifier Compte</strong> 
+    </div>
+    <div class="card-body">
+      <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <div class="form-group row">
+          
+        </div>
+          <div class="input-group mb-3" >
+              
+              <span class="input-group-addon"><i class="icon-user"></i></span>
+              <input type="text" class="form-control" name="username" minlength="3"  id="validationCustomUsername" placeholder="Username" [(ngModel)]="user.username" required="required">
+             
+            </div>
+            
+        <div class="input-group mb-3">
+            <span class="input-group-addon">@</span>
+            <input type="text" class="form-control" formnovalidate minlength="3" placeholder="Email" name="email" [(ngModel)]="user.email" required="required">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-addon"><i class="icon-phone"></i></span>
+            <input type="text" class="form-control" formnovalidate placeholder="Télephone" name="telephone" [(ngModel)]="user.telephone" required="required">
+          </div>
+     
+          <div class="input-group mb-3">
+              <span class="input-group-addon"><i class="icon-lock"></i></span>
+              <input type="text" class="form-control" placeholder="Password" minlength="3" [(ngModel)]="user.password" name="password" required>
+            </div>
+            <div class="input-group mb-4">
+                <span class="input-group-addon"><i class="icon-lock"></i></span>
+                <input type="text" class="form-control" placeholder="Repeter password" minlength="3" [(ngModel)]="user.password" name="password" required>
+            </div>
+          <div >
+              <button type="Valider" class="btn btn-sm btn-primary" (click)="ModifierUtilisateur()"><i class="fa fa-check"></i> Valider</button>
+          </div>
+
+       

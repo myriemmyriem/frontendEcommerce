@@ -1,0 +1,298 @@
+<style>
+    .z-depth-3 {
+     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+   }
+   .z-depth-5 {
+     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+   }
+   </style>
+   
+<div class="animated fadeIn">
+  <br>
+<div class="col-md-12 center">
+
+  <div class="card z-depth-5">
+   <div class="card-header">
+      <strong>Gestion utilisateurs</strong> 
+      
+    </div>
+  <div class="card-body">
+      
+      <form>
+          <div class="form-group">
+              <div class="input-group">
+                  <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                  <input type="text" class="form-control" name="searchString" placeholder="Taper pour rechercher..." [(ngModel)]="searchString">
+              </div>
+          </div>
+      </form>    
+    <button style="margin-bottom: 10px" type="button" class="btn  btn-sm btn-success btn-primary" (onHidden)="onHiddenAjouter()" (click)="showModalAjouter()"> <i class="fa fa-plus"></i> Ajouter Utilisateur</button>
+
+      <table class="table table-bordered table-striped table-sm text-center"   id="myTable" style="width:100%">
+     
+              <tr>
+                <th class="text-center">Prénom</th>
+                <th class="text-center">Nom</th>
+        
+                <th class="text-center"> Login</th>
+                <th class="text-center" > Mot passe</th>
+                <th class="text-center" > Num telephone</th>
+                <th class="text-center" > Role</th>
+                <th class="text-center" > Actions</th>
+  
+              </tr>
+           
+  
+  
+      <!-- BIND ARRAY TO TABLE -->
+      <tr *ngFor="let user of users | filter : 'nom' : searchString; let i = index">
+          <td>{{user.nom}}</td>
+              <td>{{user.prenom}}</td>
+                  <td>{{user.username}}</td>
+                  <td>{{user.password}}</td>
+                  <td>{{user.telephone}}</td>
+                  <td>{{user.profil}}</td>
+
+  <td>
+    <button type="button" class="btn  btn-sm btn-success btn-primary"(click)="showModalUpdate(user)" ><i class="	icon-pencil"></i></button>
+    <button type="button" class="btn  btn-sm btn-danger btn-primary" (click)="showModalDelete(user)"><i class="	fa fa-trash-o"></i></button>
+    
+  </td> 
+  
+      </tr>
+  
+  </table>
+  
+  <br>
+  
+  </div>
+  
+  </div>
+  </div>
+          </div>
+          <div *ngIf="isModalShownDelete" [config]="{ show: true }" (onHidden)="onHiddenDelete()" bsModal #autoShownModalDelete="bs-modal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">Supprimer</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="hideModalDelete()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-center" style="margin-bottom:20px">
+                    
+        
+            <button type="submit" class="btn btn-sm btn-primary" (click)="DeleteUser(); hideModalDelete()"><i class="fa fa-check"></i> Valider</button>
+            <button type="reset" class="btn btn-sm btn-danger" (click)="hideModalDelete()"><i class="fa fa-close"></i> Annuler</button>
+          
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <div *ngIf="isModalShownUpdate" [config]="{ show: true }" (onHidden)="onHiddenUpdate()" bsModal #autoShownModalUpdate="bs-modal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">Modifier Utilisateur</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="hideModalUpdate()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" >
+                  
+                  
+                  <div class="form-group row">
+                      <label class="col-md-3 form-control-label" for="text-input">Nom</label>
+                      <div class="col-md-9">
+              <input  
+                     [(ngModel)]="update.nom"
+                     class="form-control">
+                    </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 form-control-label" for="text-input">Prénom</label>
+            <div class="col-md-9">
+    <input   
+           [(ngModel)]="update.prenom"
+           class="form-control">
+          </div>
+</div>
+<div class="form-group row">
+  <label class="col-md-3 form-control-label" for="text-input">Login</label>
+  <div class="col-md-9">
+<input  
+ [(ngModel)]="update.username"
+ class="form-control">
+</div>
+</div>
+<div class="form-group row">
+  <label class="col-md-3 form-control-label" for="text-input">Mot Passe</label>
+  <div class="col-md-9">
+<input   
+ [(ngModel)]="update.password"
+ class="form-control">
+</div>
+</div>
+<div class="form-group row">
+  <label class="col-md-3 form-control-label" for="text-input">Num Tel</label>
+  <div class="col-md-9">
+<input   
+ [(ngModel)]="update.telephone"
+ class="form-control">
+</div>
+</div>
+<div class="form-group row">
+  <label class="col-md-3 form-control-label" for="text-input">Role</label>
+  <div class="col-md-9">
+      <select id="select" name="select"  class="form-control"  [(ngModel)]="update.profil">
+          <option >admin</option>
+        <option >Visiteur</option>
+        
+       
+      </select>
+</div>
+</div>
+
+          
+     
+      
+      
+      
+      
+      
+      
+      
+        
+        
+      
+      <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="UpdateUser(); hideModalUpdate()"><i class="fa fa-check"></i> Enregistrer</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="hideModalUpdate()"><i class="fa fa-ban"></i> Annuler</button>
+        
+        </div>
+      
+      
+      
+      
+      
+      
+      
+                
+      
+      
+      
+      
+              </div>
+               
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+          <div *ngIf="isModalShownAjouter" [config]="{ show: true }" (onHidden)="onHiddenAjouter()" bsModal #autoShownModalAjouter="bs-modal" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left">Ajouter Utilisateur</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="hideModalAjouter()"  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" >
+                  
+                  
+                  <div class="form-group row">
+                      <label class="col-md-3 form-control-label" for="text-input">Nom</label>
+                      <div class="col-md-9">
+              <input  
+                     [(ngModel)]="nom"
+                     class="form-control">
+                    </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 form-control-label" for="text-input">Prénom</label>
+            <div class="col-md-9">
+    <input   
+           [(ngModel)]="prenom"
+           class="form-control">
+          </div>
+</div>
+<div class="form-group row">
+  <label class="col-md-3 form-control-label" for="text-input">Login</label>
+  <div class="col-md-9">
+<input  
+ [(ngModel)]="username"
+ class="form-control">
+</div>
+</div>
+<div class="form-group row">
+  <label class="col-md-3 form-control-label" for="text-input">Mot Passe</label>
+  <div class="col-md-9">
+<input   
+ [(ngModel)]="password"
+ class="form-control">
+</div>
+</div>
+<div class="form-group row">
+  <label class="col-md-3 form-control-label" for="text-input">Num Tel</label>
+  <div class="col-md-9">
+<input   
+ [(ngModel)]="telephone"
+ class="form-control">
+</div>
+</div>
+<div class="form-group row">
+  <label class="col-md-3 form-control-label" for="text-input">Role</label>
+  <div class="col-md-9">
+      <select id="select" name="select"  class="form-control"  [(ngModel)]="profil">
+          <option >admin</option>
+        <option >Visiteur</option>
+        
+       
+      </select>
+</div>
+</div>
+
+
+          
+     
+      
+      
+      
+      
+      
+      
+      
+        
+        
+      
+      <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="AjouterUtilisateur(); hideModalAjouter()"><i class="fa fa-check"></i> Enregistrer</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="hideModalAjouter()"><i class="fa fa-ban"></i> Annuler</button>
+        
+        </div>
+      
+      
+      
+      
+      
+      
+      
+                
+      
+      
+      
+      
+              </div>
+               
+              </div>
+            </div>
+          </div>
+   
